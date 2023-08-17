@@ -1,0 +1,17 @@
+.regFormWrap {
+  width: 40%;
+  background-color: red;
+  margin: auto;
+  padding: 20px;
+  text-align: center; }
+  .regFormWrap input {
+    width: 95%;
+    padding: 15px 10px;
+    margin-bottom: 10px;
+    border: none; }
+  .regFormWrap .empty-field {
+    border: solid 2px red; }
+  .regFormWrap button {
+    width: 98%;
+    padding: 15px 10px;
+    border: none; }
