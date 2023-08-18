@@ -4,6 +4,7 @@ import viteLogo from "/vite.svg";
 import "./index.css";
 import Form from "./Components/Form";
 import "react-toastify/dist/ReactToastify.css";
+import Chalenge from "./Components/Chalenge";
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <div>
         <p>we are here</p>
         <Form />
+        <Chalenge />
       </div>
     </>
   );

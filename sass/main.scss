@@ -20,3 +20,38 @@
     border: none;
   }
 }
+
+.chalemge {
+  width: 40%;
+  margin: auto;
+  background-color: #12296c;
+  margin-top: 50px;
+  padding: 20px;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+
+  .step,
+  .count {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #fff;
+
+    .btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+      color: #12296c;
+      width: 30px;
+      height: 30px;
+      border: 1px solid black;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  }
+}
