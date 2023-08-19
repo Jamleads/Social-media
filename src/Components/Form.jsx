@@ -116,6 +116,7 @@ const Form = () => {
           name="passwordConfirm"
           required
         />
+        <input type="file" />
 
         <button
           onClick={(event) => {
