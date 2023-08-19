@@ -19,7 +19,7 @@ const Chalenge = () => {
     setCount(count - step);
   };
 
-  const date = new Date("Aug 18 2023");
+  const date = new Date();
   date.setDate(date.getDate() + count);
 
   return (
@@ -50,7 +50,7 @@ const Chalenge = () => {
 
       <p>
         {count === 0
-          ? `Today is ${date.toDateString()}}`
+          ? `Today is ${date.toDateString()}`
           : count < 0
           ? `${Math.abs(count)} days ago was ${date.toDateString()}`
           : `${count} days from today is ${date.toDateString()}`}
