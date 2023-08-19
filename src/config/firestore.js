@@ -25,5 +25,5 @@ const firebaseConfig = {
 // const app = initializeApp(firebaseConfig);
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const analytics = getAnalytics(app);
-const db = getFirestore(app);
+export const db = getFirestore(app);
 // db.settings({ timeStampsInSnapshots: true });
