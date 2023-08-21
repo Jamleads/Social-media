@@ -7,6 +7,10 @@ import { db } from "../config/firestore";
 import ListOfUsers from "./Admin/ListOfUsers";
 
 const Form = () => {
+  const [listOfUsers, setListOfUsers] = useState([]);
+  const [isEmptyFields, setIsEmptyFields] = useState(false);
+  const [countries, setCountry] = useState([]);
+
   const [userDataField, setuserDataField] = useState({
     firstName: "",
     lastName: "",
@@ -17,9 +21,6 @@ const Form = () => {
     country: "",
   });
 
-  const [listOfUsers, setListOfUsers] = useState([]);
-
-  //, where("capital", "==", true) // for nexted data
   const getUserData = async () => {
     const q = query(collection(db, "userData"));
     const querySnapshot = await getDocs(q);
@@ -29,17 +30,10 @@ const Form = () => {
     }));
     console.log(users);
     setListOfUsers(users);
-    // querySnapshot.forEach((doc) => {
-    //   // doc.data() is never undefined for query doc snapshots
-    //   console.log(doc.id, " => ", doc.data());
-    // });
   };
   useEffect(() => {
     getUserData();
   }, []);
-  console.log(listOfUsers);
-
-  const [isEmptyFields, setIsEmptyFields] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -82,8 +76,6 @@ const Form = () => {
       hideProgressBar: true,
     });
   };
-
-  const [countries, setCountry] = useState([]);
 
   useEffect(() => {
     fetch("https://restcountries.com/v3.1/all")
