@@ -5,12 +5,12 @@ import { collection, query, where, getDocs } from "firebase/firestore";
 import "../config/firestore";
 import { db } from "../config/firestore";
 import ListOfUsers from "./Admin/ListOfUsers";
+import { addDoc } from "firebase/firestore";
 
 const Form = () => {
   const [listOfUsers, setListOfUsers] = useState([]);
   const [isEmptyFields, setIsEmptyFields] = useState(false);
   const [countries, setCountry] = useState([]);
-
   const [userDataField, setuserDataField] = useState({
     firstName: "",
     lastName: "",
@@ -62,6 +62,7 @@ const Form = () => {
       userDataField.password === userDataField.passwordConfirm
     ) {
       console.log(userDataField);
+      addUserData();
       showToast("successful");
     } else {
       console.log("password not the same");
@@ -89,6 +90,16 @@ const Form = () => {
         console.error("Error fetching countries:", error);
       });
   }, []);
+
+  const addUserData = async () => {
+    try {
+      await addDoc(collection(db, "userData"), {
+        ...userDataField,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
