@@ -174,7 +174,12 @@ const Form = () => {
           ))}
         </select>
 
-        <input type="file" />
+        <Input />
+        <input
+          type="text"
+          placeholder="input"
+          className="border-2 border-cyan-900"
+        />
 
         <button
           onClick={(event) => {
@@ -186,12 +191,6 @@ const Form = () => {
         </button>
         <p className="message"></p>
       </form>
-
-      {/* {listOfUsers.map((user) => (
-        <div key={user.id}>
-          <ListOfUsers {...user} />
-        </div>
-      ))} */}
 
       <ToastContainer />
     </>

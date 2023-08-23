@@ -1,14 +1,12 @@
 import { useState } from "react";
 import "./index.css";
-import Form from "./Components/Form";
 import "react-toastify/dist/ReactToastify.css";
-import Button from "./Components/Button";
+import Login from "./Components/MainUser/Login";
 
 function App() {
   return (
     <>
-      <Button btnText="submit" />
-      <Form />
+      <Login />
     </>
   );
 }

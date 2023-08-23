@@ -2,18 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+
+input {
+  &:focus {
+    outline: none;
+  }
+}
 .regFormWrap {
   width: 40%;
-  background-color: red;
+  background-color: rgb(173, 129, 129);
   margin: auto;
   padding: 20px;
   text-align: center;
 
   input {
     width: 95%;
-    padding: 15px 10px;
+    // padding: 15px 10px;
     margin-bottom: 10px;
-    border: none;
+    // border: none;
   }
 
   select {
@@ -22,14 +29,15 @@
     margin-bottom: 10px;
     border: none;
   }
-  .empty-field {
-    border: solid 2px red;
-  }
+
   button {
     width: 98%;
     padding: 15px 10px;
     border: none;
   }
+}
+.empty-field {
+  border: solid 2px red;
 }
 
 .chalemge {
