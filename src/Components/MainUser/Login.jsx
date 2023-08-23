@@ -3,7 +3,7 @@ import Input from "../Input";
 import Button from "../Button";
 import leaf from "/assets/leaf.png";
 import googleIcon from "/assets/googleIcon.svg";
-import appleIcon from "/assets/apple-icon.svg";
+import gitHubIcon from "/assets/github-icon.svg";
 import { toast, ToastContainer } from "react-toastify";
 import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
 import "../../config/firestore";
@@ -11,13 +11,10 @@ import { db } from "../../config/firestore";
 import { auth } from "../../config/firestore";
 import { GoogleAuthProvider } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { GithubAuthProvider } from "firebase/auth";
 
 const Login = () => {
-  const googleAuth = (e) => {
-    const provider = new GoogleAuthProvider();
-    return signInWithPopup(auth, provider);
-  };
-
   const [isEmptyFields, setIsEmptyFields] = useState(false);
   const [ischecked, setIsChecked] = useState(false);
   const [userDataField, setuserDataField] = useState({
@@ -26,6 +23,48 @@ const Login = () => {
     password: "",
     passwordConfirm: "",
   });
+
+  const gitAuth = () => {
+    const provider = new GithubAuthProvider();
+
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GithubAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        console.log(token);
+        const user = result.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        const email = error.customData.email;
+        const credential = GithubAuthProvider.credentialFromError(error);
+        console.log(errorMessage);
+      });
+  };
+
+  const googleAuth = () => {
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(auth, provider);
+  };
+
+  const emailPasswordAuth = () => {
+    createUserWithEmailAndPassword(
+      auth,
+      userDataField.email,
+      userDataField.password
+    )
+      .then((userCredential) => {
+        const user = userCredential.user;
+        console.log(user);
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage);
+      });
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -54,8 +93,9 @@ const Login = () => {
       ischecked
     ) {
       //   console.log(userDataField);
-      addUserData();
-      showToast("successful");
+      //   addUserData();
+      emailPasswordAuth();
+      showToast("Sign Up successful");
     }
   }
 
@@ -170,9 +210,11 @@ const Login = () => {
                 btnStyle="text-sm py-1 border-[1px] border-mainBlack"
               />
               <Button
-                btnIcon={appleIcon}
-                btnText="Sign in with Apple"
+                btnClick={gitAuth}
+                btnIcon={gitHubIcon}
+                btnText="Sign in with GitHub"
                 btnStyle="text-sm py-1 border-[1px] border-mainBlack"
+                btnIconStyle="py-[2px]"
               />
             </div>
 
