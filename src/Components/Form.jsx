@@ -1,26 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
+import { collection, query, where, getDocs } from "firebase/firestore";
+import "../config/firestore";
+import { db } from "../config/firestore";
+import ListOfUsers from "./Admin/ListOfUsers";
+import { addDoc } from "firebase/firestore";
 
 const Form = () => {
-  const [userData, setUserData] = useState({
+  const [listOfUsers, setListOfUsers] = useState([]);
+  const [isEmptyFields, setIsEmptyFields] = useState(false);
+  const [countries, setCountry] = useState([]);
+  const [userDataField, setuserDataField] = useState({
     firstName: "",
     lastName: "",
     email: "",
     userName: "",
     password: "",
     passwordConfirm: "",
+    country: "",
   });
 
-  const [isEmptyFields, setIsEmptyFields] = useState(false);
+  const getUserData = async () => {
+    const q = query(collection(db, "userData"));
+    const querySnapshot = await getDocs(q);
+    const users = querySnapshot.docs.map((user) => ({
+      id: user.id,
+      ...user.data(),
+    }));
+    console.log(users);
+    setListOfUsers(users);
+  };
+  useEffect(() => {
+    getUserData();
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setUserData((prevData) => ({ ...prevData, [name]: value }));
+    setuserDataField((prevData) => ({ ...prevData, [name]: value }));
   };
 
   function checkEmail() {
-    if (userData.email.includes("@")) {
+    if (userDataField.email.includes("@")) {
       ("");
     } else {
       console.log("wrong email");
@@ -30,14 +51,18 @@ const Form = () => {
 
   function submit() {
     checkEmail();
-    if (Object.values(userData).some((field) => field === "")) {
+    if (Object.values(userDataField).some((field) => field === "")) {
       setIsEmptyFields(true);
       console.log("one of the feild is empty");
       showToast("one of the feild is empty");
       return;
     }
-    if (!isEmptyFields && userData.password === userData.passwordConfirm) {
-      console.log(userData);
+    if (
+      !isEmptyFields &&
+      userDataField.password === userDataField.passwordConfirm
+    ) {
+      console.log(userDataField);
+      addUserData();
       showToast("successful");
     } else {
       console.log("password not the same");
@@ -53,6 +78,29 @@ const Form = () => {
     });
   };
 
+  useEffect(() => {
+    fetch("https://restcountries.com/v3.1/all")
+      .then((response) => response.json())
+      .then((data) => {
+        const countriesNames = data.map((country) => country.name.common);
+        countriesNames.sort();
+        setCountry(countriesNames);
+      })
+      .catch((error) => {
+        console.error("Error fetching countries:", error);
+      });
+  }, []);
+
+  const addUserData = async () => {
+    try {
+      await addDoc(collection(db, "userData"), {
+        ...userDataField,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <form action="" id="reg-form" className="regFormWrap">
@@ -60,7 +108,7 @@ const Form = () => {
           type="text"
           placeholder="First Name"
           className={`input ${
-            isEmptyFields && !userData.firstName && "empty-field"
+            isEmptyFields && !userDataField.firstName && "empty-field"
           }`}
           onChange={handleInputChange}
           name="firstName"
@@ -70,7 +118,7 @@ const Form = () => {
           type="text"
           placeholder="Last Name"
           className={`input ${
-            isEmptyFields && !userData.lastName && "empty-field"
+            isEmptyFields && !userDataField.lastName && "empty-field"
           }`}
           onChange={handleInputChange}
           name="lastName"
@@ -80,7 +128,7 @@ const Form = () => {
           type="email"
           placeholder="Email"
           className={`input ${
-            isEmptyFields && !userData.email && "empty-field"
+            isEmptyFields && !userDataField.email && "empty-field"
           }`}
           onChange={handleInputChange}
           name="email"
@@ -90,7 +138,7 @@ const Form = () => {
           type="text"
           placeholder="username"
           className={`input ${
-            isEmptyFields && !userData.userName && "empty-field"
+            isEmptyFields && !userDataField.userName && "empty-field"
           }`}
           onChange={handleInputChange}
           name="userName"
@@ -100,7 +148,7 @@ const Form = () => {
           type="password"
           placeholder="Enter Password"
           className={`input ${
-            isEmptyFields && !userData.password && "empty-field"
+            isEmptyFields && !userDataField.password && "empty-field"
           }`}
           onChange={handleInputChange}
           name="password"
@@ -110,13 +158,28 @@ const Form = () => {
           type="password"
           placeholder="Confirm Password"
           className={`input ${
-            isEmptyFields && !userData.passwordConfirm && "empty-field"
+            isEmptyFields && !userDataField.passwordConfirm && "empty-field"
           }`}
           onChange={handleInputChange}
           name="passwordConfirm"
           required
         />
-        <input type="file" />
+
+        <select name="country" id="" onChange={handleInputChange}>
+          <option value=""></option>
+          {countries.map((country) => (
+            <option value={country} key={country}>
+              {country}
+            </option>
+          ))}
+        </select>
+
+        <Input />
+        <input
+          type="text"
+          placeholder="input"
+          className="border-2 border-cyan-900"
+        />
 
         <button
           onClick={(event) => {
