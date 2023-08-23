@@ -6,12 +6,18 @@ import googleIcon from "/assets/googleIcon.svg";
 import appleIcon from "/assets/apple-icon.svg";
 import { toast, ToastContainer } from "react-toastify";
 import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
-// import ".../config/firestore.js";
-// import { db } from ".../config/firestore";
-
-// import ListOfUsers from "./Admin/ListOfUsers";
+import "../../config/firestore";
+import { db } from "../../config/firestore";
+import { auth } from "../../config/firestore";
+import { GoogleAuthProvider } from "firebase/auth";
+import { signInWithPopup } from "firebase/auth";
 
 const Login = () => {
+  const googleAuth = (e) => {
+    const provider = new GoogleAuthProvider();
+    return signInWithPopup(auth, provider);
+  };
+
   const [isEmptyFields, setIsEmptyFields] = useState(false);
   const [ischecked, setIsChecked] = useState(false);
   const [userDataField, setuserDataField] = useState({
@@ -20,20 +26,6 @@ const Login = () => {
     password: "",
     passwordConfirm: "",
   });
-
-  //   const getUserData = async () => {
-  //     const q = query(collection(db, "userData"));
-  //     const querySnapshot = await getDocs(q);
-  //     const users = querySnapshot.docs.map((user) => ({
-  //       id: user.id,
-  //       ...user.data(),
-  //     }));
-  //     console.log(users);
-  //     setListOfUsers(users);
-  //   };
-  //   useEffect(() => {
-  //     getUserData();
-  //   }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -45,33 +37,24 @@ const Login = () => {
       setIsEmptyFields(true);
       showToast("All feilds are required");
       return;
-    }
-
-    if (userDataField.email.includes("@")) {
-      ("");
-    } else {
+    } else if (
+      !userDataField.email.includes("@") ||
+      !userDataField.email.includes(".")
+    ) {
       console.log("wrong email");
       showToast("email not correct");
-    }
-
-    if (userDataField.password !== userDataField.passwordConfirm) {
+    } else if (userDataField.password !== userDataField.passwordConfirm) {
       console.log("password not the same");
       showToast("password not the same");
-    }
-
-    if (ischecked) {
-      ("");
-    } else {
+    } else if (!ischecked) {
       showToast("You need to agree with terms and policy");
-    }
-
-    if (
+    } else if (
       !isEmptyFields &&
       userDataField.password === userDataField.passwordConfirm &&
       ischecked
     ) {
-      console.log(userDataField);
-      //   addUserData();
+      //   console.log(userDataField);
+      addUserData();
       showToast("successful");
     }
   }
@@ -84,28 +67,15 @@ const Login = () => {
     });
   };
 
-  //   useEffect(() => {
-  //     fetch("https://restcountries.com/v3.1/all")
-  //       .then((response) => response.json())
-  //       .then((data) => {
-  //         const countriesNames = data.map((country) => country.name.common);
-  //         countriesNames.sort();
-  //         setCountry(countriesNames);
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error fetching countries:", error);
-  //       });
-  //   }, []);
-
-  //   const addUserData = async () => {
-  //     try {
-  //       await addDoc(collection(db, "userData"), {
-  //         ...userDataField,
-  //       });
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   };
+  const addUserData = async () => {
+    try {
+      await addDoc(collection(db, "userData"), {
+        ...userDataField,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="h-screen w-full flex">
@@ -194,6 +164,7 @@ const Login = () => {
 
             <div className="mt-10 flex items-center justify-between gap-5">
               <Button
+                btnClick={googleAuth}
                 btnIcon={googleIcon}
                 btnText="Sign in with Google"
                 btnStyle="text-sm py-1 border-[1px] border-mainBlack"
