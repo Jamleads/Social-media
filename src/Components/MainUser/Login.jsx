@@ -57,6 +57,7 @@ const Login = () => {
     )
       .then((userCredential) => {
         const user = userCredential.user;
+        user.displayName = userDataField.fullName;
         console.log(user);
       })
       .catch((error) => {
@@ -116,6 +117,12 @@ const Login = () => {
       console.log(error);
     }
   };
+
+  // const user = firebase.auth().currentUser;
+  // if (user) {
+  //   const token = user.getIdToken();
+  //   console.log(token);
+  // }
 
   return (
     <div className="h-screen w-full flex">
