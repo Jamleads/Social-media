@@ -1,5 +1,4 @@
 import React from "react";
-import viteIcon from "/vite.svg";
 
 const Input = ({
   labelFor,

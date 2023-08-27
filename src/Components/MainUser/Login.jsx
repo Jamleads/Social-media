@@ -57,6 +57,7 @@ const Login = () => {
     )
       .then((userCredential) => {
         const user = userCredential.user;
+        user.displayName = userDataField.fullName;
         console.log(user);
       })
       .catch((error) => {
@@ -117,13 +118,41 @@ const Login = () => {
     }
   };
 
+  // const user = firebase.auth().currentUser;
+  // if (user) {
+  //   const token = user.getIdToken();
+  //   console.log(token);
+  // }
+
   return (
     <div className="h-screen w-full flex">
       <div className="lg:w-1/2 h-full bg-mainWhite flex items-center justify-center">
         <div className="lg:h-[85%] lg:w-[65%] px-10 py-5">
-          <h1 className="text-3xl font-medium">Get Started Now</h1>
+          <h1 className="text-3xl font-medium text-center">Get Started Now</h1>
 
-          <div className="form mt-10">
+          <div className="mt-10 flex items-center justify-between gap-5">
+            <Button
+              btnClick={googleAuth}
+              btnIcon={googleIcon}
+              btnText="Sign in with Google"
+              btnStyle="text-sm py-1 border-[1px] border-mainBlack"
+            />
+            <Button
+              btnClick={gitAuth}
+              btnIcon={gitHubIcon}
+              btnText="Sign in with GitHub"
+              btnStyle="text-sm py-1 border-[1px] border-mainBlack"
+              btnIconStyle="py-[2px]"
+            />
+          </div>
+
+          <div className="border-b-4 border-[#e8e3e3] alt my-16 relative">
+            <div className="text-center absolute -top-4 left-[43%] bg-mainWhite px-5 py-1 text-lg">
+              OR
+            </div>
+          </div>
+
+          <div className="form">
             <Input
               labelFor="full name"
               labelText="Full Name"
@@ -195,28 +224,6 @@ const Login = () => {
               btnText="SignUp"
               btnClick={() => submit()}
             />
-
-            <div className="border-b-4 border-[#e8e3e3] alt my-16 relative">
-              <div className="text-center absolute -top-4 left-[43%] bg-mainWhite px-5 py-1 text-lg">
-                OR
-              </div>
-            </div>
-
-            <div className="mt-10 flex items-center justify-between gap-5">
-              <Button
-                btnClick={googleAuth}
-                btnIcon={googleIcon}
-                btnText="Sign in with Google"
-                btnStyle="text-sm py-1 border-[1px] border-mainBlack"
-              />
-              <Button
-                btnClick={gitAuth}
-                btnIcon={gitHubIcon}
-                btnText="Sign in with GitHub"
-                btnStyle="text-sm py-1 border-[1px] border-mainBlack"
-                btnIconStyle="py-[2px]"
-              />
-            </div>
 
             <p className="text-center mt-5">
               Have an account? <a href="#">Sign In</a>

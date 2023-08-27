@@ -8,6 +8,8 @@ export default {
         mainBlack: "#000000",
         mainWhite: "#FFFFFF",
         mainGreen: "#3A5B22",
+        borderColor: "#2F3336",
+        textColor1: "#0f1419",
       },
     },
   },
