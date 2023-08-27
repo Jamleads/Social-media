@@ -1,5 +1,5 @@
 import React from "react";
-import Button from "../Button";
+import Button from "./Button";
 import NavLink from "./NavLink";
 import moreIcon from "/assets/More.svg";
 import listIcon from "/assets/Lists.svg";
@@ -12,11 +12,12 @@ import communitiesIcon from "/assets/communities.svg";
 import notificationIcon from "/assets/Notifications.svg";
 import textImg from "/assets/leaf.png";
 import optionIcon from "/assets/options.svg";
+import { Link } from "react-router-dom";
 
 const MenuBar = () => {
   return (
-    <div className="menubar border-borderColor border-2 w-[25%] h-screen">
-      <div className="menubar-container w-[80%] h-screen ml-auto">
+    <div className="menubar border-borderColor border-2 w-[25%] h-screen sticky top-0 bottom-0 left-0">
+      <div className="menubar-container lg:w-[80%] w-full h-screen lg:ml-auto">
         <div className="menuar-brand px-12">
           <img src={brandLogo} alt="" className="brand-logo w-[130px] -mt-5" />
         </div>
@@ -30,11 +31,14 @@ const MenuBar = () => {
               <NavLink linkIcon={messagesIcon} linkText="Messages" />
               <NavLink linkIcon={listIcon} linkText="List" />
               <NavLink linkIcon={communitiesIcon} linkText="Communities" />
-              <NavLink linkIcon={profileIcon} linkText="Profile" />
+              <Link>
+                <NavLink linkIcon={profileIcon} linkText="Profile" />
+              </Link>
+
               <NavLink linkIcon={moreIcon} linkText="More" />
 
               <Button
-                btnClick={""}
+                btnClick={() => {}}
                 btnIcon={brandLogo}
                 btnIconAlt="band-logo"
                 btnIconStyle="w-[30px]"
@@ -44,7 +48,7 @@ const MenuBar = () => {
             </div>
 
             <div className=" w-full user-link px-3 flex items-center rounded-full py-1">
-              <div className="w-[30px] h-[30px] rounded-full">
+              <div className="w-[40px] h-[40px] rounded-full">
                 <img
                   src={textImg}
                   alt="user-profile-image"

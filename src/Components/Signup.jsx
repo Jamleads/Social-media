@@ -1,20 +1,51 @@
 import React, { useEffect, useState } from "react";
-import Input from "../Input";
-import Button from "../Button";
+import Input from "./Input";
+import Button from "./Button";
 import leaf from "/assets/leaf.png";
 import googleIcon from "/assets/googleIcon.svg";
 import gitHubIcon from "/assets/github-icon.svg";
 import { toast, ToastContainer } from "react-toastify";
 import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
-import "../../config/firestore";
-import { db } from "../../config/firestore";
-import { auth } from "../../config/firestore";
+import "../config/firestore";
+import { db } from "../config/firestore";
+import { auth } from "../config/firestore";
 import { GoogleAuthProvider } from "firebase/auth";
 import { signInWithPopup } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { GithubAuthProvider } from "firebase/auth";
+import { Link } from "react-router-dom";
 
-const Login = () => {
+export const nextPage = () => {
+  window.location.href = "/home"; // Redirect using window.location
+  console.log("Redirecting...");
+};
+
+export const googleAuth = () => {
+  const provider = new GoogleAuthProvider();
+  return signInWithPopup(auth, provider);
+};
+
+export const gitAuth = () => {
+  const provider = new GithubAuthProvider();
+
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const credential = GithubAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      console.log(token);
+      const user = result.user;
+      console.log(user);
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      const email = error.customData.email;
+      const credential = GithubAuthProvider.credentialFromError(error);
+      console.log(errorMessage);
+    });
+};
+
+const Signup = () => {
   const [isEmptyFields, setIsEmptyFields] = useState(false);
   const [ischecked, setIsChecked] = useState(false);
   const [userDataField, setuserDataField] = useState({
@@ -23,31 +54,6 @@ const Login = () => {
     password: "",
     passwordConfirm: "",
   });
-
-  const gitAuth = () => {
-    const provider = new GithubAuthProvider();
-
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        const credential = GithubAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        console.log(token);
-        const user = result.user;
-        console.log(user);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
-        const credential = GithubAuthProvider.credentialFromError(error);
-        console.log(errorMessage);
-      });
-  };
-
-  const googleAuth = () => {
-    const provider = new GoogleAuthProvider();
-    return signInWithPopup(auth, provider);
-  };
 
   const emailPasswordAuth = () => {
     createUserWithEmailAndPassword(
@@ -93,9 +99,9 @@ const Login = () => {
       userDataField.password === userDataField.passwordConfirm &&
       ischecked
     ) {
-      //   console.log(userDataField);
-      //   addUserData();
+      console.log(userDataField);
       emailPasswordAuth();
+      nextPage();
       showToast("Sign Up successful");
     }
   }
@@ -108,15 +114,15 @@ const Login = () => {
     });
   };
 
-  const addUserData = async () => {
-    try {
-      await addDoc(collection(db, "userData"), {
-        ...userDataField,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const addUserData = async () => {
+  //   try {
+  //     await addDoc(collection(db, "userData"), {
+  //       ...userDataField,
+  //     });
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   // const user = firebase.auth().currentUser;
   // if (user) {
@@ -226,7 +232,7 @@ const Login = () => {
             />
 
             <p className="text-center mt-5">
-              Have an account? <a href="#">Sign In</a>
+              Already had an account? <Link to="/login">Sign In</Link>
             </p>
           </div>
         </div>
@@ -241,4 +247,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
