@@ -63,7 +63,7 @@ const Login = () => {
               //   inputChange={handleInputChange}
             />
 
-            <Link to="/home">
+            <Link to="/main">
               <Button
                 btnStyle="text-mainWhite bg-mainGreen w-full mt-6 font-bold py-1"
                 btnText="Login"

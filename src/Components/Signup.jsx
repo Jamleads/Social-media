@@ -9,20 +9,58 @@ import { collection, query, where, getDocs, addDoc } from "firebase/firestore";
 import "../config/firestore";
 import { db } from "../config/firestore";
 import { auth } from "../config/firestore";
-import { GoogleAuthProvider } from "firebase/auth";
-import { signInWithPopup } from "firebase/auth";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { GithubAuthProvider } from "firebase/auth";
 import { Link } from "react-router-dom";
+import {
+  signInWithPopup,
+  signInWithRedirect,
+  getRedirectResult,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+  GithubAuthProvider,
+} from "firebase/auth";
 
 export const nextPage = () => {
-  window.location.href = "/home"; // Redirect using window.location
+  window.location.href = "main"; // Redirect using window.location
   console.log("Redirecting...");
 };
 
 export const googleAuth = () => {
   const provider = new GoogleAuthProvider();
-  return signInWithPopup(auth, provider);
+  signInWithPopup(auth, provider);
+  // signInWithRedirect(auth, provider);
+
+  getRedirectResult(auth)
+    .then((result) => {
+      // This gives you a Google Access Token. You can use it to access Google APIs.
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      console.log(result); // HAS THE OBJECT OF THE USER, CAN BE USED OFR DESTUCTURING
+      console.log(credential);
+      console.log(token);
+
+      // The signed-in user info.
+      const user = result.user;
+      console.log(user);
+      // IdP data available using getAdditionalUserInfo(result)
+      // ...
+    })
+    .catch((error) => {
+      // Handle Errors here.
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      // The email of the user's account used.
+      const email = error.customData.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+
+      console.log(errorCode);
+      console.log(errorMessage);
+      console.log(email);
+      console.log(credential);
+      // ...
+    });
+
+  // nextPage();
 };
 
 export const gitAuth = () => {
@@ -38,10 +76,13 @@ export const gitAuth = () => {
     })
     .catch((error) => {
       const errorCode = error.code;
+      console.log(errorCode);
       const errorMessage = error.message;
-      const email = error.customData.email;
-      const credential = GithubAuthProvider.credentialFromError(error);
       console.log(errorMessage);
+      const email = error.customData.email;
+      console.log(email);
+      const credential = GithubAuthProvider.credentialFromError(error);
+      console.log(credential);
     });
 };
 
@@ -90,7 +131,6 @@ const Signup = () => {
       console.log("wrong email");
       showToast("email not correct");
     } else if (userDataField.password !== userDataField.passwordConfirm) {
-      console.log("password not the same");
       showToast("password not the same");
     } else if (!ischecked) {
       showToast("You need to agree with terms and policy");
@@ -99,10 +139,9 @@ const Signup = () => {
       userDataField.password === userDataField.passwordConfirm &&
       ischecked
     ) {
-      console.log(userDataField);
       emailPasswordAuth();
-      nextPage();
       showToast("Sign Up successful");
+      nextPage();
     }
   }
 
@@ -114,15 +153,15 @@ const Signup = () => {
     });
   };
 
-  // const addUserData = async () => {
-  //   try {
-  //     await addDoc(collection(db, "userData"), {
-  //       ...userDataField,
-  //     });
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
+  const addUserData = async () => {
+    try {
+      await addDoc(collection(db, "userData"), {
+        ...userDataField,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // const user = firebase.auth().currentUser;
   // if (user) {
@@ -216,7 +255,7 @@ const Signup = () => {
                 className="w-[20px] h-[20px]"
                 onChange={(e) => {
                   e.target.checked
-                    ? (setIsChecked(true), console.log("yes it is true"))
+                    ? setIsChecked(true)
                     : console.log("still false");
                 }}
               ></input>
@@ -228,7 +267,7 @@ const Signup = () => {
             <Button
               btnStyle="text-mainWhite bg-mainGreen w-full mt-6 font-bold py-1"
               btnText="SignUp"
-              btnClick={() => submit()}
+              btnClick={submit}
             />
 
             <p className="text-center mt-5">
