@@ -25,13 +25,15 @@ const MenuBar = () => {
         <div className="menubar-links px-10 h-[85%]">
           <div className="flex flex-col items-center justify-between h-full">
             <div>
-              <NavLink linkIcon={homeIcon} linkText="Home" />
+              <Link to="/main">
+                <NavLink linkIcon={homeIcon} linkText="Home" />
+              </Link>
               <NavLink linkIcon={exploreIcon} linkText="Explore" />
               <NavLink linkIcon={notificationIcon} linkText="Notification" />
               <NavLink linkIcon={messagesIcon} linkText="Messages" />
               <NavLink linkIcon={listIcon} linkText="List" />
               <NavLink linkIcon={communitiesIcon} linkText="Communities" />
-              <Link>
+              <Link to="profile">
                 <NavLink linkIcon={profileIcon} linkText="Profile" />
               </Link>
 
