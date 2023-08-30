@@ -20,13 +20,13 @@ const Login = () => {
               btnClick={googleAuth}
               btnIcon={googleIcon}
               btnText="Sign in with Google"
-              btnStyle="text-sm py-1 border-[1px] border-mainBlack"
+              btnStyle="text-sm py-1 border-[1px] border-mainBlack rounded-lg"
             />
             <Button
               btnClick={gitAuth}
               btnIcon={gitHubIcon}
               btnText="Sign in with GitHub"
-              btnStyle="text-sm py-1 border-[1px] border-mainBlack"
+              btnStyle="text-sm py-1 border-[1px] border-mainBlack rounded-lg"
               btnIconStyle="py-[2px]"
             />
           </div>
@@ -65,7 +65,7 @@ const Login = () => {
 
             <Link to="/main">
               <Button
-                btnStyle="text-mainWhite bg-mainGreen w-full mt-6 font-bold py-1"
+                btnStyle="text-mainWhite bg-mainGreen w-full mt-6 font-bold py-1 rounded-lg"
                 btnText="Login"
                 btnClick={() => {}}
               />
