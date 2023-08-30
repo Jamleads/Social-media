@@ -43,6 +43,10 @@ const PostComp = () => {
               eveniet ipsam, inventore labore doloribus libero sit dignissimos
               placeat odio quasi nemo consequuntur!
             </p>
+
+            <div className="media w-full h-[500px] mt-5 border-2 border-mainBlack">
+              <img src={test} alt="" className="w-full h-full" />
+            </div>
           </div>
         </div>
       </div>
