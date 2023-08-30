@@ -16,8 +16,8 @@ import { Link } from "react-router-dom";
 
 const MenuBar = () => {
   return (
-    <div className="menubar border-borderColor border-2 w-[25%] h-screen sticky top-0 bottom-0 left-0">
-      <div className="menubar-container lg:w-[80%] w-full h-screen lg:ml-auto">
+    <div className="menubar border-borderColor border-r-2 w-[25%] h-screen sticky top-0 bottom-0 left-0">
+      <div className="menubar-container lg:w-[90%] w-full h-screen lg:ml-auto">
         <div className="menuar-brand px-12">
           <img src={brandLogo} alt="" className="brand-logo w-[130px] -mt-5" />
         </div>
@@ -45,7 +45,7 @@ const MenuBar = () => {
                 btnIconAlt="band-logo"
                 btnIconStyle="w-[30px]"
                 btnText="Tweet"
-                btnStyle="bg-mainGreen py-4 mt-5 w-full text-mainWhite rounded-full"
+                btnStyle="bg-mainGreen py-4 mt-5 w-full text-mainWhite rounded-full rounded-xl"
               />
             </div>
 

@@ -6,6 +6,8 @@ export default {
       colors: {
         offWhite: "#D9D9D9",
         mainBlack: "#000000",
+        secondaryBlack: "#0f1419",
+        grayLink1: "#536471",
         mainWhite: "#FFFFFF",
         mainGreen: "#3A5B22",
         borderColor: "#2F3336",

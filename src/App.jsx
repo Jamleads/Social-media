@@ -14,7 +14,7 @@ import LandingPage from "./Components/LandingPage";
 import Home from "./Components/Home";
 import Layer from "./Components/Layer";
 import Login from "./Components/Login";
-import Profile from "./Components/Profile";
+import ProfilePage from "./Components/ProfilePage";
 
 function App() {
   const router = createBrowserRouter(
@@ -26,7 +26,7 @@ function App() {
 
         <Route path="main" element={<Layer />}>
           <Route index element={<Home />}></Route>
-          <Route path="profile" element={<Profile />}></Route>
+          <Route path="profile" element={<ProfilePage />}></Route>
           <Route></Route>
           <Route></Route>
         </Route>
