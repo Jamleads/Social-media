@@ -59,8 +59,6 @@ export const googleAuth = () => {
       console.log(credential);
       // ...
     });
-
-  // nextPage();
 };
 
 export const gitAuth = () => {
