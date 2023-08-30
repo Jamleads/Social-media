@@ -70,3 +70,6 @@ input:focus {
   .userList p {
     font-size: 14px;
     color: #fff; }
+
+.upper {
+  z-index: 1; }
