@@ -93,10 +93,17 @@ input {
 .upper {
   z-index: 1;
 }
+.overlay {
+  z-index: -1;
+}
+.tweet-form-modal {
+  z-index: 2;
+}
 
 .text {
   color: #f9188129;
   color: #536471;
   color: #1d9cf020;
   color: #00ba7c25;
+  color: #9f969643;
 }

@@ -4,10 +4,11 @@ import ProfilePicture from "./ProfilePicture";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faChartSimple,
-  faHeart,
+  // faHeart,
   faRepeat,
 } from "@fortawesome/free-solid-svg-icons";
 import {
+  faHeart,
   faComment,
   faShareFromSquare,
 } from "@fortawesome/free-regular-svg-icons";
@@ -16,9 +17,9 @@ const PostComp = () => {
   const [reTweet, setReTweet] = useState(true);
   return (
     <div>
-      {reTweet ? (
+      {reTweet ? ( // if the tweeet was retweeted
         <div className="engagement-type indication ml-5 text-grayLink1 text-sm font-bold">
-          <FontAwesomeIcon icon={faRepeat} /> <span>You tweeted</span>
+          <FontAwesomeIcon icon={faRepeat} /> <span>You retweeted</span>
         </div>
       ) : (
         ""
