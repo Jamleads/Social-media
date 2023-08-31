@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import test from "/assets/test-img.jpg";
 import ProfilePicture from "./ProfilePicture";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faRepeat } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChartSimple,
+  faHeart,
+  faRepeat,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  faComment,
+  faShareFromSquare,
+} from "@fortawesome/free-regular-svg-icons";
 
 const PostComp = () => {
   const [reTweet, setReTweet] = useState(true);
@@ -44,8 +52,57 @@ const PostComp = () => {
               placeat odio quasi nemo consequuntur!
             </p>
 
-            <div className="media w-full h-[500px] mt-5 border-2 border-mainBlack">
-              <img src={test} alt="" className="w-full h-full" />
+            <div className="media w-full h-[500px] mt-5 border-2 border-mainBlack rounded-lg">
+              <img src={test} alt="" className="w-full h-full rounded-lg" />
+            </div>
+
+            <div className="engagement-btns mt-5 flex items-center justify-around">
+              <div className="comment group flex items-center ">
+                <FontAwesomeIcon
+                  icon={faComment}
+                  className="group-hover:bg-[#1d9cf020] group-hover:text-commentColor p-3 rounded-full"
+                />
+                <span className="comment-count ml-1 group-hover:text-commentColor">
+                  3
+                </span>
+              </div>
+
+              <div className="comment group flex items-center ">
+                <FontAwesomeIcon
+                  icon={faRepeat}
+                  className="group-hover:bg-[#00ba7c25] group-hover:text-reTweetColor ease-in-out p-3 rounded-full"
+                />
+                <span className="comment-count ml-1 group-hover:text-reTweetColor ease-in-out">
+                  3
+                </span>
+              </div>
+
+              <div className="comment group flex items-center ">
+                <FontAwesomeIcon
+                  icon={faHeart}
+                  className="group-hover:bg-[#f9188129] group-hover:text-likeColor p-3 rounded-full"
+                />
+                <span className="comment-count ml-1 group-hover:text-likeColor">
+                  3
+                </span>
+              </div>
+
+              <div className="comment group flex items-center ">
+                <FontAwesomeIcon
+                  icon={faChartSimple}
+                  className="group-hover:bg-[#1d9cf020] group-hover:text-commentColor p-3 rounded-full"
+                />
+                <span className="comment-count ml-1 group-hover:text-commentColor">
+                  3
+                </span>
+              </div>
+
+              <div className="comment group flex items-center ">
+                <FontAwesomeIcon
+                  icon={faShareFromSquare}
+                  className="group-hover:bg-[#1d9cf020] group-hover:text-commentColor p-3 rounded-full"
+                />
+              </div>
             </div>
           </div>
         </div>
