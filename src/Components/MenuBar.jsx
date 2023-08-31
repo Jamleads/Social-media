@@ -13,13 +13,21 @@ import notificationIcon from "/assets/Notifications.svg";
 import textImg from "/assets/leaf.png";
 import optionIcon from "/assets/options.svg";
 import { Link } from "react-router-dom";
+import TweetFormState from "./TweetFormState";
 
 const MenuBar = () => {
+  const { openTweetForm, testing } = TweetFormState();
+
   return (
     <div className="menubar border-borderColor border-r-2 w-[25%] h-screen sticky top-0 bottom-0 left-0">
       <div className="menubar-container lg:w-[90%] w-full h-screen lg:ml-auto">
         <div className="menuar-brand px-12">
-          <img src={brandLogo} alt="" className="brand-logo w-[130px] -mt-5" />
+          <img
+            src={brandLogo}
+            alt=""
+            className="brand-logo w-[130px] -mt-5"
+            onClick={testing}
+          />
         </div>
 
         <div className="menubar-links px-10 h-[85%]">
@@ -40,7 +48,7 @@ const MenuBar = () => {
               <NavLink linkIcon={moreIcon} linkText="More" />
 
               <Button
-                btnClick={() => {}}
+                btnClick={openTweetForm}
                 btnIcon={brandLogo}
                 btnIconAlt="band-logo"
                 btnIconStyle="w-[30px]"

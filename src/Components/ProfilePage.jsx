@@ -4,7 +4,7 @@ import Tweet from "./Tweet";
 
 const ProfilePage = () => {
   return (
-    <div className="h-[5500px] w-full flex flex-start">
+    <div className="w-full flex flex-start">
       <div className="w-[60%] border-r-[0.1px] border-grayLink1">
         <Profile />
 

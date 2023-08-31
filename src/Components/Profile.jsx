@@ -24,7 +24,7 @@ const Profile = () => {
       </div>
 
       <div className="profile-cover-wrap relative">
-        <div className="cover-photo-wrap w-[100%] h-[30vh] bg-red-400">
+        <div className="cover-photo-wrap w-[100%] h-[25vh] bg-mainGreen">
           <img
             src="work on how the image will auto crop a size"
             alt="user cover photo"
@@ -33,7 +33,7 @@ const Profile = () => {
         </div>
 
         <ProfilePicture
-          imgContainerStyle="profile w-[200px] h-[200px] border-[8px] border-mainWhite rounded-full bg-red-300 absolute top-[160px] left-[20px]"
+          imgContainerStyle="profile w-[200px] h-[200px] border-[8px] border-mainWhite rounded-full bg-red-300 absolute top-[120px] left-[20px]"
           userImg={test}
           userImgAlt="Your profile picture"
           userImgStlye="w-[100%] h-full profile-photo rounded-full"
