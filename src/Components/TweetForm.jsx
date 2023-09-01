@@ -62,13 +62,17 @@ const TweetForm = ({ cancelBtn, cancelBtnClick }) => {
         />
 
         <div className="tweet-details ml-3 mt-1 w-[90%]">
-          <div>
-            <span className="display-name font-bold display-name">
-              Adetunji Jacob
-            </span>
-          </div>
+          <textarea
+            name="tweet-text"
+            id="tweet-text-content"
+            cols="30"
+            rows=""
+            placeholder="What is happening?!"
+            className="border-2 w-fullh-[100%] text-2xl p-2"
+          ></textarea>
         </div>
       </div>
+
       {/* <Dropzone onDrop={handleMediaUpload}>
         {({ getRootProps, getInputProps }) => (
           <div {...getRootProps()}>
